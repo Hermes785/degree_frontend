@@ -9,11 +9,11 @@ const HeroSection = () => {
                 <Col lg='6' md='6'>
                     <div className="hero__content">
                         <h2 className="mb-4" >
-                            Anytime Anywhere,<br /> Learn on your suitable Schedule
+                        Trouvez votre <br/> formation idéale sur notre site
                         </h2>
-                        <p className="mb-4"> Lorem ipsum dolor sit amet consecteur <br /> adipiscing elit.
-                            Aut saepe voluptatum earum delectus <br /> deserunt id iste, quas officis
-                            et repellat!
+                        <p className="mb-4">  Découvrez une large sélection de formations proposées <br/> par des écoles et universités prestigieuses.
+                         Consultez notre catalogue en ligne pour trouver la <br/> formation qui correspond à vos aspirations et 
+                        boostez votre carrière. Inscrivez-vous dès maintenant et apprenez à votre propre rythme, où que vous soyez.
                         </p>
 
                         <div className="search">

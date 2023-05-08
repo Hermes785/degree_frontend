@@ -8,24 +8,24 @@ import ChooseUs from '../components/Choose-us/ChooseUs'
 import Features from "../components/Feature-section/Features";
 import FreeCourse from "../components/Free-course-sction/FreeCourse";
 import Testimonials from '../components/Testimonial/Testimonials';
-import Newsletter from  "../components/Newsletter/Newsletter"
+import Newsletter from "../components/Newsletter/Newsletter"
 
 
 
 
 const Home = () => {
-    return(  <Fragment>
-      <Header/>
-      <HeroSection/>
-      <Company/>
-      <About/> <br /><br /> <br /> <br />
-     <Courses/>
-  <ChooseUs/>
-  <Features/>
-  <FreeCourse/>
-   <Testimonials/> 
-  <Newsletter/>
-    </Fragment>)
+  return (<Fragment>
+    <Header /> <br />
+    <HeroSection /><br />
+    <Courses /> <br />
+    <Company />  <br />
+    <About />  <br />
+    <ChooseUs /> <br />
+    <Features /> <br />
+    <FreeCourse /> <br />
+    <Testimonials /> <br />
+    <Newsletter /> <br />
+  </Fragment>)
 }
 
 export default Home;

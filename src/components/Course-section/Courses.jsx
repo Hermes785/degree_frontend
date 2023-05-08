@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Container, Row, Col } from "reactstrap";
-import courseImg1 from "../../assests/images/web-design.png";
-import courseImg2 from "../../assests/images/graphics-design.png";
-import courseImg3 from "../../assests/images/ui-ux.png";
+import img from "../../assests/images/seo.png"
 
 import CourseCard from "./CourseCard";
-
+/*
 const coursesData = [
   {
     id: "01",
@@ -34,20 +33,35 @@ const coursesData = [
     imgUrl: courseImg3,
   },
 ];
+*/
+
 
 const Courses = () => {
+  const [pictures, setPicture] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://127.0.0.1:5000/formation")
+      .then((res) => {
+        setPicture(res.data);
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+  }, []);
   return (
     <section>
       <Container>
         <Row>
           <Col lg="12" className="mb-5">
+
             <div className="course__top d-flex justify-content-between align-items-center">
               <div className="course__top__left w-50">
-                <h2>Our Popular Courses</h2>
+                <h2>Les formation les plus  </h2>
                 <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae
-                  consequatur libero quod voluptatibus ullam quia quas, vitae
-                  voluptatem recusandae reprehenderit!
+                Découvrez dès maintenant notre catalogue de formations proposées par des
+                 écoles et universités de renom, consultez notre catalogue en ligne pour trouver 
+                 la formation qui correspond à vos aspirations et boostez votre carrière.!
                 </p>
               </div>
 
@@ -56,11 +70,36 @@ const Courses = () => {
               </div>
             </div>
           </Col>
-          {coursesData.map((item) => (
-            <Col lg="4" md="6" sm="6">
-              <CourseCard key={item.id} item={item} />
-            </Col>
-          ))}
+          <Col lg='4' md='9' className="mb-4 d-flex  ">
+            {pictures.map((picture) => (
+              <div className="single__course__item   row justify-content-between">
+                
+                <div className="course__img">
+                  <img src={img} alt="web design" className='w-100' />
+                </div>
+                <div className="course__details">
+                  <h6 className="course__title mb-4">
+                    {picture.title}
+                  </h6>
+
+
+                  <div className="">
+                    <p className=" d-flex align-items-center gap-1">
+                      <i style={{ color: "#17bf92" }} className="ri-user-line">Localisation</i>{picture.ville}
+                    </p>
+                  </div>
+
+                  <div className="d-flex justify-content-between">
+                    <p className="lesson d-flex align-items-center gap-1">
+                      <i style={{ color: "#17bf92" }} className="ri-star-fill">Cout de la formation:</i>{picture.price}€
+                    </p>
+                  </div>
+                  
+                </div>
+              </div>
+            ))}
+          </Col>
+
         </Row>
       </Container>
     </section>

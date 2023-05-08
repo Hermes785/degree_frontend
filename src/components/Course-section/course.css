@@ -5,6 +5,7 @@
   .course__img img {
     border-radius: 10px;
     margin-bottom: 20px;
+    
   }
   
   .enroll a {
@@ -26,13 +27,20 @@
   .students i,
   .rating i {
     font-weight: 400;
+ 
   }
   
   .course__title {
-    line-height: 2rem;
+    font-weight: 600;
+    text-align: center;
+   
+  
   }
   
   .course__top__left h2 {
     font-weight: 600;
   }
+
+  
+  
   

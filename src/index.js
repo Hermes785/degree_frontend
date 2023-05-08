@@ -16,7 +16,11 @@ import './components/Testimonial/testimonial.css'
 import './components/Newsletter/newsletter.css'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "animate.css/animate.min.css";
 
+
+< script  src =" https://code.jquery.com/jquery-3.6.4.min.js " > </ script >
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
