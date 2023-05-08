@@ -1,4 +1,4 @@
-import React, { useRef,useId,useEffect,useState} from "react";
+import React, { useRef,useEffect} from "react";
 import { Link } from "react-router-dom";
 import { Button, Container } from "reactstrap";
 import { useParams } from "react-router-dom";
@@ -35,9 +35,9 @@ const navLinks = [
 const Header = () => {
   const menuRef = useRef();
   
-    const [user, setUser] = useState('');
-    const { id } = useParams();
-    const history =useNavigate();
+    //const [user, setUser] = useState('');
+   // const { id } = useParams();
+    //const history =useNavigate();
  
     useEffect(() => {
       const accessToken = localStorage.getItem('accessToken');
@@ -58,18 +58,18 @@ const Header = () => {
           console.log(fullName);
         })
         .catch((err) => {
-          console.error(err);
+          console.error(err); 
         });
     
       })
   
-    const handleLogout = () => {
+   /*const handleLogout = () => {
       // Efface le token stocké dans le local storage
       localStorage.removeItem("accestoken");
       // Redirige l'utilisateur vers la page de connexion
       history.push("/login");
     };
-
+*/
 
   const menuToggle = () => menuRef.current.classList.toggle("active__menu");
 
