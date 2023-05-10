@@ -8,20 +8,20 @@ import axios from "axios";
 
 const navLinks = [
   {
-    display: "Home",
+    display: "Accueil",
     url: "/",
   },
   {
-    display: "About",
+    display: "A propos",
     url: "#",
   },
 
   {
-    display: "Courses",
+    display: "Formation",
     url: "#",
   },
   {
-    display: "Pages",
+    display: "Emplois",
     url: "#",
   },
   {

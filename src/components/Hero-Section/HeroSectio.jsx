@@ -9,7 +9,7 @@ const HeroSection = () => {
                 <Col lg='6' md='6'>
                     <div className="hero__content">
                         <h2 className="mb-4" >
-                        Trouvez votre <br/> formation idéale sur notre site
+                        Trouvez une <br/> formation IT  idéale en France
                         </h2>
                         <p className="mb-4">  Découvrez une large sélection de formations proposées <br/> par des écoles et universités prestigieuses.
                          Consultez notre catalogue en ligne pour trouver la <br/> formation qui correspond à vos aspirations et 
