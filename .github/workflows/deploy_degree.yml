@@ -6,7 +6,6 @@ on:
     branches:
       - release
       - main
-      
 
 jobs:
   build-and-deploy:
@@ -28,14 +27,33 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region:  eu-west-1
+          aws-region: eu-west-1
 
       # Déployer l'application sur le bucket S3
       - name: Deploy to S3
         run: |
           aws s3 sync build/ s3://degree-release --delete
 
+      # Redirection vers l'URL d'Elastic Beanstalk
+      - name: Configure S3 website redirection
+        run: |
+          aws s3api put-bucket-website --bucket degree-release --website-configuration '{
+            "IndexDocument": {"Suffix": "index.html"},
+            "RoutingRules": [
+              {
+                "Redirect": {
+                  "HostName": "degree-backend-release-dev.eu-west-1.elasticbeanstalk.com",
+                  "HttpRedirectCode": "302",
+                  "Protocol": "http"
+                },
+                "Condition": {
+                  "KeyPrefixEquals": ""
+                }
+              }
+            ]
+          }'
+
       # Afficher l'URL de l'application déployée
       - name: Display app URL
         run: |
-          echo "Application URL: http://degree-backend-release-dev.eu-west-1.elasticbeanstalk.com/"
+          echo "Application URL: http://degree-release.s3-website-eu-west-1.amazonaws.com"
