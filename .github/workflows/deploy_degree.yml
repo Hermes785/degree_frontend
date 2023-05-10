@@ -56,4 +56,4 @@ jobs:
       # Afficher l'URL de l'application déployée
       - name: Display app URL
         run: |
-          echo "Application URL: http://degree-release.s3-website-eu-west-1.amazonaws.com"
+          echo "Application URL: http://degree-backend-release-dev.eu-west-1.elasticbeanstalk.com/"
