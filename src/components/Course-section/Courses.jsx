@@ -40,8 +40,12 @@ const Courses = () => {
   const [pictures, setPicture] = useState([]);
 
   useEffect(() => {
+    const url = process.env.NODE_ENV === 'production'
+      ? 'http://degree-backend-release-dev.eu-west-1.elasticbeanstalk.com/formation'
+      : 'http://127.0.0.1:5000/formation';
+
     axios
-      .get("http://127.0.0.1:5000/formation")
+      .get(url)
       .then((res) => {
         setPicture(res.data);
       })
@@ -49,6 +53,10 @@ const Courses = () => {
         console.log(error.response);
       });
   }, []);
+
+  // Rest of the component code
+};
+
   return (
     <section>
       <Container>
