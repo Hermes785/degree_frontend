@@ -27,7 +27,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts start --proxy http://degree-backend-release-dev.eu-west-1.elasticbeanstalk.com/",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
