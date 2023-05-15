@@ -37,7 +37,7 @@ jobs:
             "RoutingRules": [
               {
                 "Redirect": {
-                  "HostName": "http://degree-release.s3-website-eu-west-1.amazonaws.com",
+                  "HostName": "degree-release.s3-website-eu-west-1.amazonaws.com",
                   "HttpRedirectCode": "302",
                   "Protocol": "http"
                 },
