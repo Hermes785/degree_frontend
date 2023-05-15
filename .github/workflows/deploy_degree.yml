@@ -29,25 +29,13 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-west-1
 
-                # Redirection vers l'URL S3
+      # Redirection vers l'URL S3
       - name: Configure S3 website redirection
         run: |
           aws s3api put-bucket-website --bucket degree-release --website-configuration '{
             "IndexDocument": {"Suffix": "index.html"},
-            "RoutingRules": [
-              {
-                "Redirect": {
-                  "HostName": "degree-release.s3-website-eu-west-1.amazonaws.com",
-                  "HttpRedirectCode": "302",
-                  "Protocol": "http"
-                },
-                "Condition": {
-                  "KeyPrefixEquals": ""
-                }
-              }
-            ]
+            "ErrorDocument": {"Key": "index.html"}
           }'
-
 
       # Déployer l'application sur le bucket S3
       - name: Deploy to S3
