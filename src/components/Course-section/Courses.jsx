@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Container, Row, Col } from "reactstrap";
 import img from "../../assests/images/seo.png";
-//import CourseCard from "./CourseCard";
+import CourseCard from "./CourseCard";
 const Courses = () => {
   const [pictures, setPicture] = useState([]);
 
   useEffect(() => {
     const url =
       process.env.NODE_ENV === "production"
-        ? "http://degree-backend-release-dev.eu-west-1.elasticbeanstalk.com/formation"
+        ? "degree-backend-release-dev.eu-west-1.elasticbeanstalk.com/formation"
         : "http://127.0.0.1:5000/formation";
 
     axios
