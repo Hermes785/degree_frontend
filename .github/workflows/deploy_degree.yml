@@ -34,6 +34,11 @@ jobs:
         run: |
           aws s3 sync build/ s3://degree-release --delete
 
+      # Mettre à jour l'URL de l'application déployée dans le fichier .env
+      - name: Update app URL
+        run: |
+          echo "REACT_APP_API_URL=http://degree-release.s3-website-eu-west-1.amazonaws.com" >> .env
+
       # Afficher l'URL de l'application déployée
       - name: Display app URL
         run: |
