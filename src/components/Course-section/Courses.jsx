@@ -3,14 +3,16 @@ import axios from "axios";
 import { Container, Row, Col } from "reactstrap";
 import img from "../../assests/images/seo.png";
 
+import config from "../Config/config";
+
 //import CourseCard from "./CourseCard";
 const Courses = () => {
   const [pictures, setPicture] = useState([]);
  useEffect(() => {
-    const url = process.env.REACT_APP_URL
-    console.log(url);
+   // const url = process.env.REACT_APP_URL
+   // console.log(url);
     axios
-      .get(url)
+      .get(config.url)
       .then((res) => {
         setPicture(res.data);
       })
