@@ -2,16 +2,13 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Container, Row, Col } from "reactstrap";
 import img from "../../assests/images/seo.png";
+
 import CourseCard from "./CourseCard";
 const Courses = () => {
   const [pictures, setPicture] = useState([]);
-
-  useEffect(() => {
-    const url =
-      process.env.NODE_ENV === "production"
-        ? "degree-backend-release-dev.eu-west-1.elasticbeanstalk.com/formation"
-        : "http://127.0.0.1:5000/formation";
-
+ useEffect(() => {
+    const url = process.env.REACT_APP_URL
+    console.log(url);
     axios
       .get(url)
       .then((res) => {
@@ -20,8 +17,7 @@ const Courses = () => {
       .catch((error) => {
         console.log(error.response);
       });
-  }, []);
-
+  },[]);
   return (
     <section>
       <Container>

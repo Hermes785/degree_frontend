@@ -55,7 +55,7 @@ axios.get('http://127.0.0.1:5000/login', bodyFormData)
     setShowSocialButtons(true);
   };
 
-  
+  /*
   const handleLinkedInLogin = async () => {
     try {
       const response = await axios.get('http://localhost:5000/auth/linkedin');
@@ -63,6 +63,24 @@ axios.get('http://127.0.0.1:5000/login', bodyFormData)
        // const urlToGetLinkedInAccessToken = 'https://www.linkedin.com/oauth/v2/accessToken';
         localStorage.setItem('accessToken',response.data.accessToken);
         console.log(response.data.accessToken);
+      } else {
+        console.error('Access token not found in response');
+      }
+    } catch (error) {
+      console.error('Error occurred during LinkedIn login:', error);
+    }
+  };
+  */
+  const handleLinkedInLogin = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/auth/linkedin');
+      if (response.data && response.data.accessToken) { 
+        // Récupérer le token d'accès depuis la réponse
+        const accessToken = response.data.accessToken;
+        console.log(accessToken);
+        
+        // Stocker le token dans le localStorage ou effectuer toute autre opération nécessaire
+        localStorage.setItem('accessToken', accessToken);
       } else {
         console.error('Access token not found in response');
       }
