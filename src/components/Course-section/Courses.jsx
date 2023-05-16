@@ -3,7 +3,7 @@ import axios from "axios";
 import { Container, Row, Col } from "reactstrap";
 import img from "../../assests/images/seo.png";
 
-import config from "../Config/config";
+import config from "../Config/config.jsx";
 
 //import CourseCard from "./CourseCard";
 const Courses = () => {
