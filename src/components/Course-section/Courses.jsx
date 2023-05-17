@@ -2,15 +2,10 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Container, Row, Col } from "reactstrap";
 import img from "../../assests/images/seo.png"; 
-
 import config from "../Settings/config.jsx";
-
-//import CourseCard from "./CourseCard";
 const Courses = () => {
   const [pictures, setPicture] = useState([]);
  useEffect(() => {
-   // const url = process.env.REACT_APP_URL
-   // console.log(url);
     axios
       .get(config.url)
       .then((res) => {
