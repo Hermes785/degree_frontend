@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import PostFormation from './components/PostFormation/PostFormation'
+import AddTraining from './components/AddTrainning/AddTrainning'
 import Home from './pages/Home'
 import LoginForm from './components/Login/LoginForm'
 import RegistrationForm from './components/Registration/RegistrationForm'
@@ -11,11 +11,12 @@ const AppRouter = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home/>} />
-        <Route path="/PostFormation" element={<PostFormation/>} />
+        <Route path="/:user" element={<Home/>} />
+        <Route path="/PostFormation" element={<AddTraining/>} />
         <Route path='/Login' element={<LoginForm/>}    />
         <Route   path='/registration' element={<RegistrationForm/>}/>
         <Route  path='/freecourse' element={<FreeCourse/>}/>
-        <Route path=''/>
+    
       </Routes>
     </BrowserRouter>
   )

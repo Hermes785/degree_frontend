@@ -7,7 +7,7 @@ const Courses = () => {
   const [pictures, setPicture] = useState([]);
  useEffect(() => {
     axios
-      .get(config.url)
+      .get(config.url_backend)
       .then((res) => {
         setPicture(res.data);
       })

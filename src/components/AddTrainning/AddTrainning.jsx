@@ -1,10 +1,10 @@
 import React from 'react'
 import { Col, Container, Row } from 'reactstrap'
 import Header from '../header/Header'
-import './postFomation.css'
+import './AddTrainning.css'
 //import './components/PostFormation/PostFormation.js'
 
-const PostFormation = () => {
+const AddTrainning = () => {
     return (
         <section className="section section-lg">
             <Header /> <br />
@@ -48,4 +48,4 @@ const PostFormation = () => {
     )
 }
 
-export default PostFormation
+export default AddTrainning

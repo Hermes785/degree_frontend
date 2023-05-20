@@ -1,11 +1,11 @@
-import React, { useRef,useEffect} from "react";
-import { Link } from "react-router-dom";
+import React, { useRef, useState, useEffect } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Button, Container } from "reactstrap";
-//import { useParams } from "react-router-dom";
+//import jwt from "jsonwebtoken";
 import axios from "axios";
-//import { useNavigate } from 'react-router-dom'
-
-
+import Config from "../Settings/config";
+import jwt_decode from 'jwt-decode';
+console.log(Config)
 const navLinks = [
   {
     display: "Accueil",
@@ -15,7 +15,6 @@ const navLinks = [
     display: "A propos",
     url: "#",
   },
-
   {
     display: "Formation",
     url: "#",
@@ -28,58 +27,48 @@ const navLinks = [
     display: "Blog",
     url: "#",
   },
- 
-
 ];
 
 const Header = () => {
   const menuRef = useRef();
-  
-    //const [user, setUser] = useState('');
-   // const { id } = useParams();
-    //const history =useNavigate();
- 
-    useEffect(() => {
-      const accessToken = localStorage.getItem('accessToken');
-      const headers = {
-        Authorization: `Bearer ${accessToken}`,
-        'cache-control': 'no-cache',
-        'X-Restli-Protocol-Version': '2.0.0',
-      };
-      const profileUrl = 'https://api.linkedin.com/v2/me';
-       const urlToGetLinkedInAccessToken = 'https://www.linkedin.com/oauth/v2/accessToken';
-       console.log(urlToGetLinkedInAccessToken)
-    
-      axios
-        .get(profileUrl, { headers })
-        .then((res) => {
-          const { localizedFirstName, localizedLastName } = res.data;
-          const fullName = `${localizedFirstName} ${localizedLastName}`;
-          console.log(fullName);
-        })
-        .catch((err) => {
-          console.error(err); 
-        });
-    
-      })
-  
-   /*const handleLogout = () => {
-      // Efface le token stocké dans le local storage
-      localStorage.removeItem("accestoken");
-      // Redirige l'utilisateur vers la page de connexion
-      history.push("/login");
-    };
-*/
+  const navigate = useNavigate();
+  const [user, setUser] = useState('');
+  const { userId } = useParams();
 
+  
+  const token = localStorage.getItem('token');
+
+  useEffect(() => {
+    if (token) {
+      try {
+        const decodedToken = jwt_decode(token);
+        const userId = decodedToken.userId;
+        console.log(userId);
+        axios.get(`${Config.url_by_id}/${userId}`)
+          .then(response => {
+            setUser(response.data);
+            console.log('Informations de l\'utilisateur:', response.data);
+          })
+          .catch(error => console.log('Erreur lors de la récupération des informations de l\'utilisateur:', error));
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, [token, userId]);
   const menuToggle = () => menuRef.current.classList.toggle("active__menu");
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
 
   return (
     <header className="header">
       <Container>
         <div className="navigation d-flex align-items-center justify-content-between">
           <div className="logo">
-            <h2 className=" d-flex align-items-center gap-1">
-              <i style={{ color: "#17bf92" }}class="ri-pantone-line"></i>Graduate education.
+            <h2 className="d-flex align-items-center gap-1">
+              <i style={{ color: "#17bf92" }} className="ri-pantone-line"></i>Graduate education.
             </h2>
           </div>
 
@@ -95,16 +84,34 @@ const Header = () => {
             </div>
 
             <div className="nav__right">
-            
-              <p className="mb-0 d-flex align-items-center gap-2">
-                <i style={{ color: "#17bf92" }}class="ri-phone-lin"></i> <Button className="btn btn-success"><Link to={'/login'} style={{ textDecoration:'none',color:'white' }}>Sing in</Link></Button><Button className="btn btn-success"><Link to={'/registration'} style={{ textDecoration:'none',color:'white' }}>Create Account</Link></Button>
-              </p>
+              {localStorage.getItem('token') ? (
+                <p className="mb-0 d-flex align-items-center gap-2">
+                  <span className="badge bg-success">{user.name}</span>
+
+                  <Button className="btn btn-success" onClick={handleLogout}>
+                    Logout
+                  </Button>
+                </p>
+              ) : (
+                <p className="mb-0 d-flex align-items-center gap-2">
+                  <Button className="btn btn-success">
+                    <Link to={"/login"} style={{ textDecoration: "none", color: "white" }}>
+                      Sign in
+                    </Link>
+                  </Button>
+                  <Button className="btn btn-success">
+                    <Link to={"/registration"} style={{ textDecoration: "none", color: "white" }}>
+                      Create Account
+                    </Link>
+                  </Button>
+                </p>
+              )}
             </div>
           </div>
 
           <div className="mobile__menu">
             <span>
-              <i style={{ color: "#17bf92" }} class="ri-menu-line" onClick={menuToggle}></i>
+              <i style={{ color: "#17bf92" }} className="ri-menu-line" onClick={menuToggle}></i>
             </span>
           </div>
         </div>

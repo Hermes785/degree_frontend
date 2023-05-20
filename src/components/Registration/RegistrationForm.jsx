@@ -5,6 +5,7 @@ import { useSpring, animated }  from '@react-spring/web';
 import { Link } from "react-router-dom";
 import Header from '../header/Header';
 import axios from "axios";
+import Config from "../Settings/config";
 
 
 const  RegistrationForm = () => {
@@ -14,6 +15,8 @@ const  RegistrationForm = () => {
  const [password,setPassword]=useState('');
  const [confirm_Password,setConfirmPassword]=useState('');
  const [showSocialButtons, setShowSocialButtons] = useState(false);
+ const [errorMessage,setErrorMessage] = useState('');
+ const [successMessage,setSuccessMessage]=useState('');
  const socialButtonsAnimation = useSpring({
     opacity: showSocialButtons ? 1 : 0,
     transform: showSocialButtons ? 'translateY(0px)' : 'translateY(50px)',
@@ -64,12 +67,15 @@ const handleShowSocialButtons = () => {
       confirm_Password: confirm_Password
     };
     
-    axios.post('http://127.0.0.1:5000/register/create', data)
+    axios.post(Config.url_registration, data)
       .then(res => {
         console.log(res.data)
+        setSuccessMessage(res.data.message)
+        
       })
       .catch(error => { 
         console.log(error.response)
+        setErrorMessage(error.response.data.message)
       });
     
   }
@@ -79,6 +85,9 @@ const handleShowSocialButtons = () => {
     <><Header/>
       
       <Container className="mt-5">
+      {errorMessage && <h2 className="alert alert-danger">{errorMessage}</h2>}
+      {successMessage && <h2 className="alert alert-success">{successMessage}</h2>}
+
         <Form onSubmit={handleSubmit} className="border p-4 shadow">
           <h1 className="text-center mb-4">Register</h1>
 
