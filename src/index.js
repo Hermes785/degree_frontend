@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'remixicon/fonts/remixicon.css'
 import './components/header/header.css'
 import './components/Hero-Section/hero-section.css'
-import  './components/About/about.css'
+import './components/About/about.css'
 import './components/Course-section/course.css'
 import './components/Choose-us/chooseus.css'
 import './components/Free-course-sction/freecourse.css'
@@ -18,9 +18,9 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "animate.css/animate.min.css";
+import "./pages/home.css"
 
-
-< script  src =" https://code.jquery.com/jquery-3.6.4.min.js " > </ script >
+< script src=" https://code.jquery.com/jquery-3.6.4.min.js " > </ script >
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

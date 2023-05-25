@@ -1,60 +1,78 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Button, Container } from "reactstrap";
-//import jwt from "jsonwebtoken";
 import axios from "axios";
 import Config from "../Settings/config";
 import jwt_decode from 'jwt-decode';
-console.log(Config)
-const navLinks = [
-  {
-    display: "Accueil",
-    url: "/",
-  },
-  {
-    display: "A propos",
-    url: "#",
-  },
-  {
-    display: "Formation",
-    url: "#",
-  },
-  {
-    display: "Emplois",
-    url: "#",
-  },
-  {
-    display: "Blog",
-    url: "#",
-  },
-];
+
 
 const Header = () => {
   const menuRef = useRef();
   const navigate = useNavigate();
   const [user, setUser] = useState('');
-  const { userId } = useParams();
 
-  
+  const [successMessage, setSuccessMessage] = useState('')
+
   const token = localStorage.getItem('token');
 
+  const navLinks = [
+    {
+      display: "Accueil",
+      // url: localStorage.getItem("token") ? `/${localStorage.getItem("token")}` : "/",
+      url: '/'
+    },
+    {
+      display: "A propos",
+      url: "#",
+    },
+    {
+      display: "Formation",
+      url: "#",
+    },
+    {
+      display: "Emplois",
+      url: "#",
+    },
+    {
+      display: "Blog",
+      url: "#",
+    },
+  ];
+
+  const { accessToken } = useParams();
+
   useEffect(() => {
-    if (token) {
+    if (accessToken) {
+      localStorage.setItem('token', accessToken);
+      // console.log(accessToken);
+    }
+  }, [accessToken]);
+
+  useEffect(() => {
+    const fetchData = async () => {
       try {
-        const decodedToken = jwt_decode(token);
-        const userId = decodedToken.userId;
-        console.log(userId);
-        axios.get(`${Config.url_by_id}/${userId}`)
-          .then(response => {
-            setUser(response.data);
-            console.log('Informations de l\'utilisateur:', response.data);
-          })
-          .catch(error => console.log('Erreur lors de la récupération des informations de l\'utilisateur:', error));
+        if (token) {
+          const decodedToken = jwt_decode(token);
+          const userId = decodedToken.userId;
+          axios.get(`${Config.url_by_id}/${userId}`)
+            .then((response) => {
+              setUser(response.data);
+              setSuccessMessage(response.data.message);
+              console.log('Informations de l\'utilisateur:', response.data);
+            }).catch((error) => {
+              console.log(error);
+            });
+        }
       } catch (error) {
         console.log(error);
       }
-    }
-  }, [token, userId]);
+    };
+
+    fetchData();
+  }, [token, accessToken]);
+
+
+
   const menuToggle = () => menuRef.current.classList.toggle("active__menu");
 
   const handleLogout = () => {
@@ -64,6 +82,7 @@ const Header = () => {
 
   return (
     <header className="header">
+      {successMessage && <h2 className="alert alert-success">{successMessage}</h2>}
       <Container>
         <div className="navigation d-flex align-items-center justify-content-between">
           <div className="logo">
@@ -85,13 +104,14 @@ const Header = () => {
 
             <div className="nav__right">
               {localStorage.getItem('token') ? (
-                <p className="mb-0 d-flex align-items-center gap-2">
+                <div className="mb-0 d-flex align-items-center gap-2">
                   <span className="badge bg-success">{user.name}</span>
 
                   <Button className="btn btn-success" onClick={handleLogout}>
-                    Logout
+                    Deconnexion
                   </Button>
-                </p>
+
+                </div>
               ) : (
                 <p className="mb-0 d-flex align-items-center gap-2">
                   <Button className="btn btn-success">

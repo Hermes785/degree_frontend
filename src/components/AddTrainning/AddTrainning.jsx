@@ -13,19 +13,27 @@ const AddTrainning = () => {
                     <Col>
                         <form class="animate__animated animate__fadeIn">
                             <div class="form-group">
-                                <label for="title">Titre de l'événement</label>
+                                <label for="title">Titre de la Formation</label>
                                 <input type="text" class="form-control" id="title" placeholder="Entrez le titre de votre événement" />
                             </div>
                             <div class="form-group">
-                                <label for="city">Ville</label>
+                                <label for="city">Durée</label>
                                 <input type="text" class="form-control" id="city" placeholder="Entrez la ville de votre événement" />
                             </div>
                             <div class="form-group">
-                                <label for="duration">Durée</label>
+                                <label for="duration">Debouchés</label>
                                 <input type="text" class="form-control" id="duration" placeholder="Entrez la durée de votre événement" />
                             </div>
                             <div class="form-group">
-                                <label for="outlet">Lieu</label>
+                                <label for="outlet">Prix de la formation</label>
+                                <input type="text" class="form-control" id="outlet" placeholder="Entrez le lieu de votre événement" />
+                            </div>
+                            <div class="form-group">
+                                <label for="outlet">Ville</label>
+                                <input type="text" class="form-control" id="outlet" placeholder="Entrez le lieu de votre événement" />
+                            </div>
+                            <div class="form-group">
+                                <label for="outlet">Ecole</label>
                                 <input type="text" class="form-control" id="outlet" placeholder="Entrez le lieu de votre événement" />
                             </div>
                             <div class="form-group">
