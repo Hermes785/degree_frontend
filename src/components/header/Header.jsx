@@ -1,24 +1,22 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { Button, Container } from "reactstrap";
+import { Button, Container, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
 import axios from "axios";
 import Config from "../Settings/config";
 import jwt_decode from 'jwt-decode';
-
 
 const Header = () => {
   const menuRef = useRef();
   const navigate = useNavigate();
   const [user, setUser] = useState('');
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const [successMessage, setSuccessMessage] = useState('')
-
   const token = localStorage.getItem('token');
 
   const navLinks = [
     {
       display: "Accueil",
-      // url: localStorage.getItem("token") ? `/${localStorage.getItem("token")}` : "/",
       url: '/'
     },
     {
@@ -38,13 +36,10 @@ const Header = () => {
       url: "#",
     },
   ];
-
   const { accessToken } = useParams();
-
   useEffect(() => {
     if (accessToken) {
-      localStorage.setItem('token', accessToken);
-      // console.log(accessToken);
+      localStorage.setItem("token", accessToken);
     }
   }, [accessToken]);
 
@@ -54,12 +49,13 @@ const Header = () => {
         if (token) {
           const decodedToken = jwt_decode(token);
           const userId = decodedToken.userId;
-          axios.get(`${Config.url_by_id}/${userId}`)
+          axios
+            .get(`${Config.url_by_id}/${userId}`)
             .then((response) => {
               setUser(response.data);
               setSuccessMessage(response.data.message);
-              console.log('Informations de l\'utilisateur:', response.data);
-            }).catch((error) => {
+            })
+            .catch((error) => {
               console.log(error);
             });
         }
@@ -71,9 +67,11 @@ const Header = () => {
     fetchData();
   }, [token, accessToken]);
 
+  //const menuToggle = () => menuRef.current.classList.toggle("active__menu");
 
-
-  const menuToggle = () => menuRef.current.classList.toggle("active__menu");
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -92,7 +90,7 @@ const Header = () => {
           </div>
 
           <div className="nav d-flex align-items-center gap-5">
-            <div className="nav__menu" ref={menuRef} onClick={menuToggle}>
+            <div className="nav__menu" ref={menuRef} onClick={() => menuRef.current.classList.toggle("active__menu")}>
               <ul className="nav__list">
                 {navLinks.map((item, index) => (
                   <li key={index} className="nav__item">
@@ -104,14 +102,18 @@ const Header = () => {
 
             <div className="nav__right">
               {localStorage.getItem('token') ? (
-                <div className="mb-0 d-flex align-items-center gap-2">
-                  <span className="badge bg-success">{user.name}</span>
-
-                  <Button className="btn btn-success" onClick={handleLogout}>
-                    Deconnexion
-                  </Button>
-
-                </div>
+                <Dropdown isOpen={dropdownOpen} toggle={toggleDropdown}>
+                  <DropdownToggle className="btn-success" caret>
+                    <i className="ri-user-line"></i>
+                  </DropdownToggle>
+                  <DropdownMenu>
+                    <DropdownItem>{user.name}</DropdownItem>
+                    <DropdownItem><i className="ri-add-line"></i> Ajouter une formation</DropdownItem>
+                    <DropdownItem><i className="ri-settings-3-line"></i> Modifier le compte</DropdownItem>
+                    <DropdownItem divider />
+                    <DropdownItem onClick={handleLogout}><i className="ri-logout-circle-line"></i> Déconnexion</DropdownItem>
+                  </DropdownMenu>
+                </Dropdown>
               ) : (
                 <p className="mb-0 d-flex align-items-center gap-2">
                   <Button className="btn btn-success">
@@ -131,7 +133,7 @@ const Header = () => {
 
           <div className="mobile__menu">
             <span>
-              <i style={{ color: "#17bf92" }} className="ri-menu-line" onClick={menuToggle}></i>
+              <i style={{ color: "#17bf92" }} className="ri-menu-line" onClick={() => menuRef.current.classList.toggle("active__menu")}></i>
             </span>
           </div>
         </div>
