@@ -17,7 +17,7 @@ const Header = () => {
   const navLinks = [
     {
       display: "Accueil",
-      url: '/'
+      url: `${Config.url_home}`
     },
     {
       display: "A propos",
@@ -108,7 +108,7 @@ const Header = () => {
                   </DropdownToggle>
                   <DropdownMenu>
                     <DropdownItem>{user.name}</DropdownItem>
-                    <DropdownItem><i className="ri-add-line"></i> Ajouter une formation</DropdownItem>
+                    <DropdownItem><i className="ri-add-line"></i> <Link to={'/AddTraining'} style={{ textDecoration: "none", color: "black" }}>Ajouter une formation</Link> </DropdownItem>
                     <DropdownItem><i className="ri-settings-3-line"></i> Modifier le compte</DropdownItem>
                     <DropdownItem divider />
                     <DropdownItem onClick={handleLogout}><i className="ri-logout-circle-line"></i> Déconnexion</DropdownItem>

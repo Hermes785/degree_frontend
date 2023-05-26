@@ -7,7 +7,7 @@ import Header from '../header/Header';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Config from '../Settings/config';
-
+console.log(Config)
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -89,7 +89,6 @@ const LoginForm = () => {
 
           <animated.hr className="mt-4 mb-4" style={socialButtonsAnimation} />
           <p className="text-success">Or</p>
-
           <div className="mb-3 d-flex ">
             <Button variant="danger" onMouseEnter={handleShowSocialButtons}>
               <FaGoogle />{' '}
