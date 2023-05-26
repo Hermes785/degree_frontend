@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import { Col, Container, Row } from 'reactstrap'
 import Header from '../header/Header'
 import './AddTrainning.css'
-import axios from 'axios'
-import Config from '../Settings/config'
+//import axios from 'axios'
+//import Config from '../Settings/config'
 //import './components/PostFormation/PostFormation.js'
 
 const AddTrainning = () => {
@@ -15,7 +15,7 @@ const AddTrainning = () => {
     const [city, setCity] = useState('');
     const [school, setSchool] = useState('');
     const [description, setDescription] = useState('');
-    const token = localStorage.getItem('token');
+    // const token = localStorage.getItem('token');
 
     const handleChangetraining = (e) => {
         setTraining(e.target.value);
@@ -52,26 +52,26 @@ const AddTrainning = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        let data = {
-            training: training,
-            duree: duree,
-            debouches: debouches,
-            price: price,
-            city: city,
-            school: school,
-            description: description,
-        }
-        /*
-                if (token) {
-                    axios.post(Config.url_add_training, data)
-                        .then((res) => {
-        
-                        })
-                        .catch((err) => {
-        
-                        })
-                }
-        */
+        /*     let data = {
+                 training: training,
+                 duree: duree,
+                 debouches: debouches,
+                 price: price,
+                 city: city,
+                 school: school,
+                 description: description,
+             }
+             
+                     if (token) {
+                         axios.post(Config.url_add_training, data)
+                             .then((res) => {
+             
+                             })
+                             .catch((err) => {
+             
+                             })
+                     }
+             */
     }
     return (
         <section className="section section-lg">
