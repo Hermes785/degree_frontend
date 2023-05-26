@@ -1,40 +1,56 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { Container, Row, Col, Form, InputGroup, Input, Button } from "reactstrap";
 import img from "../../assests/images/seo.png";
-import config from "../Settings/config.jsx";
 import { Link } from "react-router-dom";
+import Config from "../Settings/config.jsx";
 
 const Courses = () => {
   const [pictures, setPictures] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [search, setSearch] = useState("");
+  const [isSearch, setIsSearch] = useState(false);
 
-  const handleSearch = (e) => {
+  const handleChangeSearches = (e) => {
+    setSearch(e.target.value)
+  }
+
+  const handleSubmitSearch = useCallback((e) => {
     e.preventDefault();
-    setSearchTerm(e.target.value)
-    // Faites ici votre logique de recherche
-    console.log("Recherche effectuée :", searchTerm);
-  };
+    console.log("Recherche effectuée :", search);
+    const searchData = {
+      search: search
+    };
+    axios
+      .post(Config.url_search_training, searchData)
+      .then((res) => {
+        setPictures(res.data);
+        setIsSearch(true)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+  }, [search]);
 
   useEffect(() => {
-
     const token = localStorage.getItem('token');
     if (token) {
+
       axios
-        .get(config.url_backend)
+        .get(Config.url_all_training)
         .then((res) => {
-          setPictures(res.data);
+          if (!isSearch) {
+            setPictures(res.data);
+          }
         })
         .catch((error) => {
           console.log(error.response);
         });
-    }
-  }, []);
-  const handleChangeSearches = (e) => {
-    setSearchTerm(e.target.value)
-    console.log(searchTerm)
 
-  }
+    }
+  }, [isSearch]);
+
+
 
 
   return (
@@ -56,14 +72,13 @@ const Courses = () => {
           </Col>
           <Col lg="12" className="mb-4">
             <div className="search__bar">
-              <Form onSubmit={handleSearch}>
+              <Form onSubmit={handleSubmitSearch}>
                 <InputGroup>
                   <Input
                     placeholder="Rechercher..."
-                    value={searchTerm}
                     onChange={handleChangeSearches}
                   />
-                  <Button type="submit" color="success">
+                  <Button type="submit" color="success" >
                     Rechercher
                   </Button>
                 </InputGroup>
