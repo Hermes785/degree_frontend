@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Container, Form, Button } from 'react-bootstrap';
 import { FaFacebook, FaGoogle, FaLinkedin } from 'react-icons/fa';
 import { useSpring, animated } from '@react-spring/web';
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Header from '../header/Header';
 import axios from "axios";
 import Config from "../Settings/config";
@@ -17,6 +17,7 @@ const RegistrationForm = () => {
   const [showSocialButtons, setShowSocialButtons] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const navigate = useParams()
   const socialButtonsAnimation = useSpring({
     opacity: showSocialButtons ? 1 : 0,
     transform: showSocialButtons ? 'translateY(0px)' : 'translateY(50px)',
@@ -69,7 +70,8 @@ const RegistrationForm = () => {
 
     axios.post(Config.url_registration, data)
       .then(res => {
-        setSuccessMessage(res.data.message)
+        navigate(`${Config.url_home}/login`)
+        setSuccessMessage("")
 
       })
       .catch(error => {

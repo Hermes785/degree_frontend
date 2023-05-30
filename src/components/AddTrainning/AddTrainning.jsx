@@ -70,7 +70,7 @@ const AddTrainning = () => {
             axios.post(Config.url_add_training, data)
                 .then((res) => {
                     console.log(res.data)
-                    navigate('/')
+                    navigate(`${Config.url_home}`)
                     setSuccessMessage('Formation ajoutee avec succes')
                 })
                 .catch((err) => {

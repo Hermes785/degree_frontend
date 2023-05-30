@@ -40,7 +40,7 @@ const LoginForm = () => {
         setSuccessMessage(res.data.message);
         const token = res.data.accessToken;
         localStorage.setItem('token', token);
-        navigate('/');
+        navigate(`${Config.url_home}`);
       })
       .catch((error) => {
         console.log(error);
