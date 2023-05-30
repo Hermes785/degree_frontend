@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
-import { Container, Row, Col, Form, InputGroup, Input, Button } from "reactstrap";
+import { Container, Row, Col, Form, InputGroup, Input, Button, Alert } from "reactstrap";
 import img from "../../assests/images/seo.png";
 import { Link } from "react-router-dom";
 import Config from "../Settings/config.jsx";
@@ -14,6 +14,8 @@ const Courses = () => {
   const handleChangeSearches = (e) => {
     setSearch(e.target.value)
   }
+
+
 
   const handleSubmitSearch = useCallback((e) => {
     e.preventDefault();
@@ -36,30 +38,34 @@ const Courses = () => {
   }, [search]);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
+    axios
+      .get(Config.url_all_training)
+      .then((res) => {
+        if (!isSearch) {
+          setPictures(res.data);
+        }
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
 
-      axios
-        .get(Config.url_all_training)
-        .then((res) => {
-          if (!isSearch) {
-            setPictures(res.data);
-          }
-        })
-        .catch((error) => {
-          console.log(error.response);
-        });
 
-    }
   }, [isSearch]);
 
-
+  const handleSubmitVoirPlus = (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem('token');
+    if (!token) {
+      setErrorMessage('Veillez vous connectez pour voir plus d\'information')
+    }
+  }
 
 
   return (
     <section>
+
       <Container>
-        {errorMessage && <h2 className="alert alert-success">{errorMessage}</h2>}
+
         <Row>
           <Col lg="12" className="mb-5">
             <div className="course__top d-flex justify-content-between align-items-center">
@@ -89,6 +95,14 @@ const Courses = () => {
               </Form>
             </div>
           </Col>
+          <div>
+            {errorMessage && (
+              <Alert color="danger">
+                {errorMessage}
+              </Alert>
+            )}
+          </div>
+
           {pictures.map((picture) => (
             <Col lg="4" md="6" key={picture.id}>
               <div className="single__course__item">
@@ -111,7 +125,7 @@ const Courses = () => {
                   </div>
                 </div>
                 <div className="text-end">
-                  <Link className="btn btn-success" to={`training/${picture._id}`}>
+                  <Link onClick={handleSubmitVoirPlus} className="btn btn-success" to={`training/${picture._id}`}>
                     Voir plus
                   </Link>
                 </div>
