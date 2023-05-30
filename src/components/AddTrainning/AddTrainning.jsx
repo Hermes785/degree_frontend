@@ -4,6 +4,7 @@ import Header from '../header/Header'
 import './AddTrainning.css'
 import axios from 'axios'
 import Config from '../Settings/config'
+import { useNavigate } from 'react-router-dom'
 
 
 const AddTrainning = () => {
@@ -18,6 +19,7 @@ const AddTrainning = () => {
     const [errorMessage, setErrorMessage] = useState(false);
     const [successMessage, setSuccessMessage] = useState(false);
     const token = localStorage.getItem('token');
+    const navigate = useNavigate()
 
     const handleChangeTitle = (e) => {
         setTitle(e.target.value);
@@ -68,6 +70,7 @@ const AddTrainning = () => {
             axios.post(Config.url_add_training, data)
                 .then((res) => {
                     console.log(res.data)
+                    navigate('/')
                     setSuccessMessage('Formation ajoutee avec succes')
                 })
                 .catch((err) => {
