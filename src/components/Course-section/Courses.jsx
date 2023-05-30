@@ -9,6 +9,7 @@ const Courses = () => {
   const [pictures, setPictures] = useState([]);
   const [search, setSearch] = useState("");
   const [isSearch, setIsSearch] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('')
 
   const handleChangeSearches = (e) => {
     setSearch(e.target.value)
@@ -25,9 +26,11 @@ const Courses = () => {
       .then((res) => {
         setPictures(res.data);
         setIsSearch(true)
+        console.log(res.data)
       })
       .catch((error) => {
         console.log(error);
+        setErrorMessage(error.response.data.message)
       });
 
   }, [search]);
@@ -56,6 +59,7 @@ const Courses = () => {
   return (
     <section>
       <Container>
+        {errorMessage && <h2 className="alert alert-success">{errorMessage}</h2>}
         <Row>
           <Col lg="12" className="mb-5">
             <div className="course__top d-flex justify-content-between align-items-center">
@@ -75,7 +79,7 @@ const Courses = () => {
               <Form onSubmit={handleSubmitSearch}>
                 <InputGroup>
                   <Input
-                    placeholder="Rechercher..."
+                    placeholder="Entrer un mot" type='search'
                     onChange={handleChangeSearches}
                   />
                   <Button type="submit" color="success" >

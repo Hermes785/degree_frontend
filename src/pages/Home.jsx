@@ -15,8 +15,8 @@ import Newsletter from "../components/Newsletter/Newsletter"
 
 const Home = () => {
   return (<Fragment>
-    <Header /> <br /> 
-    <HeroSection /><br />
+    <Header />
+    <HeroSection />
     <Courses /> <br />
     <Company />  <br />
     <About />  <br />
